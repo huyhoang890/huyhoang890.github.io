@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#btnDK").click(function() {
+                $("#myModal").modal();
+            })
+
+            function KiemTraMaSV() {
+                var mauKT = /^[1-9]{1}[0-9]{9}$/;
+                if ($("#txtMaSV").val() == "") {
+                    $("#tbMaSV").html("Không để trống");
+                    return false;
+                }
+                if (!mauKT.test($("#txtMaSV").val())) {
+                    $("#tbMaSV").html("Mã sinh viên gồm 10 chữ số");
+                    return true;
+                }
+                $("#tbMaSV").html("*");
+                return true;
+            }
+            $("#txtMaSV").blur(KiemTraMaSV);
+
+            function KiemTraHT() {
+                var mauKT = /([A-Z]{1}[a-z]+)((\s{1}[A-Z]{1}[a-z]+){1,})$/;
+                if ($("#txtHT").val() == "") {
+                    $("#tbHT").html("Không để trống");
+                    return false;
+                }
+                if (!mauKT.test($("#txtHT").val())) {
+                    $("#tbHT").html("Mỗi ký tự đầu viết hoa không sử dụng số");
+                    return true;
+                }
+                $("#tbHT").html("*");
+                return true;
+            }
+            $("#txtHT").blur(KiemTraHT);
+
+            function KiemTraMail() {
+                var mail = /^\w+([\.-]?\w+)*@iuh.edu.vn$/;
+                if ($("#txtEmail").val() == "") {
+                    $("#tbMail").html("Không để trống");
+                    return false;
+                }
+
+                if (!mail.test($("#txtEmail").val())) {
+                    $("#tbMail").html("* Nhập theo mẫu: xxxx@iuh.edu.vn");
+                    return true;
+                }
+
+                $("#tbMail").html("*");
+                return true;
+            }
+            $("#txtEmail").blur(KiemTraMail);
+
+            function KiemTraNgay() {
+                if ($("#txtNTG").val() == "") {
+                    $("#tbNTG").html("Không để trống");
+                    return false;
+                }
+                var today = new Date();
+                var ntt = new Date($("#txtNTG").val());
+                today = today.setDate(today.getDate() + 7);
+                if (today > ntt) {
+                    $("#tbNTG").html("Phải sau ngày hiện tại 7 ngày");
+                    return false;
+                }
+                $("#tbNTG").html("'");
+                return true;
+            }
+            $("#txtNTG").blur(KiemTraNgay);
+
+            function KiemTraSDT() {
+                var mauKT = /^0\d{3}-\d{3}-\d{3}$/;
+                if ($("#txtSDT").val() == "") {
+                    $("#tbSDT").html("Không để trống");
+                    return false;
+                }
+                if (!mauKT.test($("#txtSDT").val())) {
+                    $("#tbSDT").html("");
+                    return true;
+                }
+                $("#tbSDT").html("*");
+                return true;
+            }
+            $("#txtSDT").blur(KiemTraSDT);
+
+            $("#Save").click(function() {
+                if (!KiemTraMaSV() || !KiemTraHT() || !KiemTraMail() || !KiemTraNgay() || KiemTraSDT()) {
+                    $("#thongbao").html("* Nhập đúng và đủ thông tin");
+                    return false;
+                }
+                var masv = $("#txtMaSV").val();
+                var hoten = $("#txtHT").val();
+                var ntg = $("#txtNTG").val();
+                var email = $("#txtEmail").val();
+                var sdt = $("#txtSDT").val;
+                var them = "<tr><td>" + (i++) + "</td><td>" + masv + "</td><td>" + hoten + "</td><td>" + ntg + "</td><td>" + email + "</td><td>" + sdt + "</td></tr>";
+                $("table").append(them);
+                $("#myModal").modal("hide");
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <img src="../images/logo.PNG" alt="">
+            </div>
+            <div class="col-md-10 text-center bg-info">
+                <h3>ĐOÀN THANH NIÊN THÀNH PHỐ HỒ CHÍ MINH</h3>
+                <h6 class="text-danger">ĐOÀN THANH NIÊN TRƯỜNG ĐẠI HỌC CÔNG NGHIỆP THÀNH PHỐ HỒ CHÍ MINH</h6>
+            </div>
+        </div>
+        <div class="row">
+            <nav class="navbar navbar-expand-md bg-dark col-md-12 justify-content-front">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Đoàn thể</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Sự kiện</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#">Hoạt động</a>
+                        <div class="dropdown-content">
+                            <a class="dropdown-item" href="#" id="btnDK">Đăng ký</a>
+
+                            <a class="dropdown-item" href="#">Tham gia</a>
+
+
+                        </div>
+                    </li>
+            </nav>
+        </div>
+        <div class="row ">
+            <div class="col-md-4 ">
+                <aside>
+                    <img src="../images/ngayhoithanhnien.JPG " alt=" " srcset=" " class="rounded-circle " width="100% ">
+                </aside>
+            </div>
+            <div class="col-md-8 ">
+                <section>
+                    <table class="table table-striped" role="table">
+                        <tr>
+                            <td>STT</td>
+                            <td>Mã SV</td>
+                            <td>Tên SV</td>
+                            <td>Ngày tham gia</td>
+                            <td>Email</td>
+                            <td>Số điện thoại</td>
+                        </tr>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+        <div class="row ">
+            <footer class="col-md-12 bg-info text-center ">
+                <h4>KHOA CÔNG NGHỆ THÔNG TIN</h4>
+                <h5>LỚP: CDCNTT20A</h5>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal fade " role="dialog " id="myModal">
+        <div class="modal-dialog ">
+            <div class="modal-content ">
+                <div class="modal-header justify-content-center ">
+                    THÔNG TIN ĐĂNG KÝ
+                </div>
+                <div class="modal-body ">
+                    <form action=" " method="get " class="form-horizontal ">
+                        <div class="form-group">
+                            <label for="lblMaSV">Mã sinh viên:</label>
+                            <input type="text" name="txtMaSV" id="txtMaSV" class="form-control">
+                            <span id="tbMaSV" class="text-danger">*</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lblHT">Họ tên:</label>
+                            <input type="text" name="txtHT" id="txtHT" class="form-control">
+                            <span id="tbHT" class="text-danger">*</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lblEmail">Email:</label>
+                            <input type="email" name="txtEmail" id="txtEmail" class="form-control">
+                            <span id="tbMail" class="text-danger">*</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lblNTG">Ngày tham gia</label>
+                            <input type="date" name="txtNTG" id="txtNTG" class="form-control ">
+                            <span id="tbNTG" class="text-danger">*</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lblSDT">Số điện thoại:</label>
+                            <input type="text" name="txtSDT" id="txtSDT" class="form-control ">
+                            <span id="tbSDT" class="text-danger">*</span>
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center ">
+                    <button class="btn btn-sucess btn-group-justified" id="Save" type="button" style="color: white; background-color:red; width: 100%;">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
